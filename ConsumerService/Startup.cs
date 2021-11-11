@@ -1,3 +1,5 @@
+using ConsumerService.Services;
+using ConsumerService.Services.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +27,7 @@ namespace ConsumerService
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ConsumerService", Version = "v1" });
             });
+            services.AddTransient<ICustomerService, CustomerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

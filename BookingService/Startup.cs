@@ -4,9 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using PartnerService.Services.Interface;
 
-namespace PartnerService
+namespace BookingService
 {
     public class Startup
     {
@@ -24,10 +23,8 @@ namespace PartnerService
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PartnerService", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookingService", Version = "v1" });
             });
-
-            services.AddTransient<IPartnerService, Services.PartnerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,7 +34,7 @@ namespace PartnerService
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PartnerService v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookingService v1"));
             }
 
             app.UseHttpsRedirection();

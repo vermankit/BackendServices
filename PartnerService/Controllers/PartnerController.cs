@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PartnerService.Modals;
+using PartnerService.Services.Interface;
+using System;
 using System.Collections.Generic;
 
 
@@ -9,35 +11,37 @@ namespace PartnerService.Controllers
     [ApiController]
     public class PartnerController : ControllerBase
     {
-
-        public PartnerController()
+        private readonly IPartnerService _partnerService;
+        public PartnerController(IPartnerService partnerService)
         {
-
+            _partnerService = partnerService;
         }
 
         [HttpGet]
         public IEnumerable<Partner> Get()
         {
-            return System.Array.Empty<Partner>();
+            return _partnerService.Get();
         }
 
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Partner Get(Guid id)
         {
-            return "value";
+            return _partnerService.Get(id);
         }
 
         // POST api/<PartnerController>
         [HttpPost]
-        public void Post([FromBody] Partner partner)
+        public Partner Post([FromBody] Partner partner)
         {
+            return _partnerService.Add(partner);
         }
 
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Partner partner)
+        public void Put(Guid id, [FromBody] Partner partner)
         {
+            _partnerService.Update(id, partner);
         }
 
     }

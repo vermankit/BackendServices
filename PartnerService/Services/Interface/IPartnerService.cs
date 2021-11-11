@@ -1,14 +1,14 @@
-﻿using System;
+﻿using PartnerService.Modals;
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using PartnerService.Modals;
 
 namespace PartnerService.Services.Interface
 {
-    internal interface IPartnerService
+    public interface IPartnerService
     {
-        Task AddPartner(Partner partner);
-        Task<List<Partner>> GetPartners();
-        Task<Partner> GetPartners(Guid id);
+        Partner Add(Partner partner);
+        List<Partner> Get();
+        Partner Get(Guid id);
+        Partner Update(Guid id, Partner partner);
     }
 }
