@@ -3,6 +3,7 @@ using PartnerService.Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using PartnerService.Enum;
 
 namespace PartnerService.Services
 {
@@ -12,7 +13,29 @@ namespace PartnerService.Services
 
         static PartnerService()
         {
-            Partners = new List<Partner>();
+            Partners = new List<Partner>()
+            {
+                new()
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "saurav@test.com",
+                    FirstName = "Saurav",
+                    LastName = "Singh",
+                    Gender = "M",
+                    AreaCode = 101,
+                    Profession = Service.Carpenter
+                },
+                new()
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "rani@test.com",
+                    FirstName = "Rani",
+                    LastName = "Singh",
+                    Gender = "M",
+                    AreaCode = 102,
+                    Profession = Service.Cook
+                }
+            };
         }
 
         public Partner Add(Partner partner)

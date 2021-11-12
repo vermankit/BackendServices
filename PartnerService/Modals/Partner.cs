@@ -17,6 +17,7 @@ namespace PartnerService.Modals
             Gender = partner.Gender;
             Profession = partner.Profession;
             Email = partner.Email;
+            AreaCode = AreaCode;
         }
 
         public Guid Id { get; set; }
@@ -28,7 +29,8 @@ namespace PartnerService.Modals
         public string LastName { get; set; }
         [Required]
         public string Gender { get; set; }
+        public long AreaCode { get; set; }
         [Required]
-        public string Profession { get; set; }
+        public Enum.Service Profession { get; set; }
     }
 }
