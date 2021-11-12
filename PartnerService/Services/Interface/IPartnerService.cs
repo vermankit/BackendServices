@@ -1,6 +1,6 @@
-﻿using PartnerService.Modals;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using PartnerService.Modals;
 
 namespace PartnerService.Services.Interface
 {

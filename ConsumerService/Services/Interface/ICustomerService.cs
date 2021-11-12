@@ -1,6 +1,6 @@
-﻿using ConsumerService.Modals;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using ConsumerService.Modals;
 
 namespace ConsumerService.Services.Interface
 {

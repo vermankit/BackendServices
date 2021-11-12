@@ -5,7 +5,9 @@ namespace ConsumerService.Modals
 {
     public class Customer
     {
-       
+        public Customer()
+        {
+        }
 
         public Customer(Guid id, Customer customer)
         {
@@ -18,14 +20,17 @@ namespace ConsumerService.Modals
         }
 
         public Guid Id { get; set; }
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
-        [Required]
-        public string Gender { get; set; }
-        [Required]
-        public string Address { get; set; }
+
+        [Required] public string FirstName { get; set; }
+
+        [Required] public string LastName { get; set; }
+
+        [Required] public string Gender { get; set; }
+
+        [Required] public string Address { get; set; }
+
+        public long AreaCode { get; set; }
+
         [Required]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }

@@ -1,8 +1,8 @@
-﻿using ConsumerService.Modals;
+﻿using System;
+using System.Collections.Generic;
+using ConsumerService.Modals;
 using ConsumerService.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,6 +13,7 @@ namespace ConsumerService.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
+
         public CustomerController(ICustomerService customerService)
         {
             _customerService = customerService;
@@ -45,7 +46,5 @@ namespace ConsumerService.Controllers
         {
             return _customerService.Update(id, customer);
         }
-
-
     }
 }

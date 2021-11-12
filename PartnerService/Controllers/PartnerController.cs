@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using PartnerService.Modals;
 using PartnerService.Services.Interface;
-using System;
-using System.Collections.Generic;
-
 
 namespace PartnerService.Controllers
 {
@@ -12,6 +11,7 @@ namespace PartnerService.Controllers
     public class PartnerController : ControllerBase
     {
         private readonly IPartnerService _partnerService;
+
         public PartnerController(IPartnerService partnerService)
         {
             _partnerService = partnerService;
@@ -43,6 +43,5 @@ namespace PartnerService.Controllers
         {
             _partnerService.Update(id, partner);
         }
-
     }
 }
