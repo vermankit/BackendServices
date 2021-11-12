@@ -20,6 +20,7 @@ namespace ConsumerService.Modals
         }
 
         public Guid Id { get; set; }
+<<<<<<< HEAD
 
         [Required] public string FirstName { get; set; }
 
@@ -31,8 +32,21 @@ namespace ConsumerService.Modals
 
         public long AreaCode { get; set; }
 
+=======
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [Required]
+        public string Gender { get; set; }
+        [Required]
+        public string Address { get; set; }
+        public long AreaCode { get; set; }
+>>>>>>> b0c4ad5ecb398d69837623994375c1dd471135b1
         [Required]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
+
+
     }
 }

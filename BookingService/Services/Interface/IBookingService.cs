@@ -11,4 +11,8 @@ namespace BookingService.Services.Interface
         Booking Get(Guid id);
         Booking Update(Guid id, Booking partner);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b0c4ad5ecb398d69837623994375c1dd471135b1
