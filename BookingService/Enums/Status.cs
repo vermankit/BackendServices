@@ -1,4 +1,5 @@
-﻿namespace BookingService.Enums
+namespace BookingService.Enums
+
 {
     public enum Status
     {
@@ -7,4 +8,5 @@
         Deny,
         Completed
     }
+
 }

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using PartnerService.Enum;
+<<<<<<< HEAD
 using PartnerService.Modals;
 using PartnerService.Services.Interface;
+=======
+>>>>>>> b0c4ad5ecb398d69837623994375c1dd471135b1
 
 namespace PartnerService.Services
 {
@@ -11,7 +14,11 @@ namespace PartnerService.Services
     {
         static PartnerService()
         {
+<<<<<<< HEAD
             Partners = new List<Partner>
+=======
+            Partners = new List<Partner>()
+>>>>>>> b0c4ad5ecb398d69837623994375c1dd471135b1
             {
                 new()
                 {

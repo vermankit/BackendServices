@@ -24,6 +24,7 @@ namespace PartnerService.Modals
         public Guid Id { get; set; }
 
         public string Email { get; set; }
+<<<<<<< HEAD
 
         [Required] public string FirstName { get; set; }
 
@@ -34,5 +35,16 @@ namespace PartnerService.Modals
         public long AreaCode { get; set; }
 
         [Required] public Service Profession { get; set; }
+=======
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [Required]
+        public string Gender { get; set; }
+        public long AreaCode { get; set; }
+        [Required]
+        public Enum.Service Profession { get; set; }
+>>>>>>> b0c4ad5ecb398d69837623994375c1dd471135b1
     }
 }
