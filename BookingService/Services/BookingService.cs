@@ -8,21 +8,14 @@ namespace BookingService.Services
 {
     public class BookingService : IBookingService
     {
-<<<<<<< HEAD
-=======
-        public static List<Booking> Bookings { get; set; }
 
->>>>>>> b0c4ad5ecb398d69837623994375c1dd471135b1
+        public static List<Booking> Bookings { get; set; }
+        
         static BookingService()
         {
             Bookings = new List<Booking>();
         }
 
-<<<<<<< HEAD
-        public static List<Booking> Bookings { get; set; }
-
-=======
->>>>>>> b0c4ad5ecb398d69837623994375c1dd471135b1
         public Booking Add(Booking booking)
         {
             //var alreadyExist = GetBooking(booking.CustomerId,booking.PartnerId);
@@ -48,14 +41,9 @@ namespace BookingService.Services
             return Bookings.FirstOrDefault(p => p.Id == id);
         }
 
-<<<<<<< HEAD
-=======
-        public Booking GetBooking(string email)
-        {
-            return null;
-        }
 
->>>>>>> b0c4ad5ecb398d69837623994375c1dd471135b1
+
+
         public Booking Update(Guid id, Booking booking)
         {
             Bookings.Remove(booking);
@@ -63,7 +51,7 @@ namespace BookingService.Services
             Bookings.Add(updatedCustomer);
             return updatedCustomer;
         }
-<<<<<<< HEAD
+
 
         public Booking GetBooking(string email)
         {
@@ -71,7 +59,4 @@ namespace BookingService.Services
         }
     }
 }
-=======
-    }
-}
->>>>>>> b0c4ad5ecb398d69837623994375c1dd471135b1
+

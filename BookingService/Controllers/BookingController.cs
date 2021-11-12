@@ -49,6 +49,3 @@ namespace BookingService.Controllers
     }
 }
 
-
-
-
