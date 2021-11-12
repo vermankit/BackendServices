@@ -13,7 +13,18 @@ namespace BookingService.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IBookingService _bookingService;
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> b0c4ad5ecb398d69837623994375c1dd471135b1
+>>>>>>> 0c09f7defccf10347cc58dd08c92ed98d1f7375d
+>>>>>>> fb88df9148fbeabf394695bd55c47909ca81516d
         public BookingController(IBookingService customerService)
         {
             _bookingService = customerService;
@@ -46,6 +57,27 @@ namespace BookingService.Controllers
         {
             return _bookingService.Update(id, customer);
         }
+<<<<<<< HEAD
     }
 }
 
+=======
+<<<<<<< HEAD
+    }
+}
+
+
+
+
+=======
+<<<<<<< HEAD
+    }
+}
+=======
+
+
+    }
+}
+>>>>>>> b0c4ad5ecb398d69837623994375c1dd471135b1
+>>>>>>> 0c09f7defccf10347cc58dd08c92ed98d1f7375d
+>>>>>>> fb88df9148fbeabf394695bd55c47909ca81516d
