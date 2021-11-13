@@ -38,7 +38,7 @@ namespace PartnerService.Controllers
         }
 
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         public void Put(Guid id, [FromBody] Partner partner)
         {
             _partnerService.Update(id, partner);

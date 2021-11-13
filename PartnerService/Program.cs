@@ -13,7 +13,12 @@ namespace PartnerService
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(
+                    webBuilder =>
+                    {
+                        //webBuilder.UseUrls("http://localhost:7001");
+                        webBuilder.UseStartup<Startup>();
+                    });
         }
     }
 }
