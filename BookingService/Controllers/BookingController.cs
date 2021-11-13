@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using AutoMapper;
 using BookingService.Modals;
+using BookingService.Services.Entity;
 using BookingService.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,38 +15,44 @@ namespace BookingService.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IBookingService _bookingService;
+        private readonly IMapper _mapper;
 
-        public BookingController(IBookingService customerService)
+        public BookingController(IBookingService customerService, IMapper mapper)
         {
             _bookingService = customerService;
+            _mapper = mapper;
         }
 
         // GET: api/<CustomerController>
         [HttpGet]
         public IEnumerable<Booking> Get()
         {
-            return _bookingService.Get();
+            var result = _mapper.Map<List<Booking>>(_bookingService.Get());
+            return result;
         }
 
         // GET api/<CustomerController>/5
         [HttpGet("{id:guid}")]
         public Booking Get(Guid id)
         {
-            return _bookingService.Get(id);
+            var result = _mapper.Map<Booking>(_bookingService.Get());
+            return result;
         }
 
         // POST api/<CustomerController>
         [HttpPost]
         public Booking Post([FromBody] Booking customer)
         {
-            return _bookingService.Add(customer);
+            var result = _mapper.Map<Booking>(_bookingService.Get());
+            return result;
         }
 
         // PUT api/<CustomerController>/5
         [HttpPut("{id:guid}")]
         public Booking Put(Guid id, [FromBody] Booking customer)
         {
-            return _bookingService.Update(id, customer);
+            var result = _bookingService.Update(id,_mapper.Map<BookingEntity>(customer));
+            return _mapper.Map<Booking>(result); 
         }
     }
 }

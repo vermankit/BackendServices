@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BookingService.Modals;
+using BookingService.Services.Entity;
 using BookingService.Services.Interface;
 
 namespace BookingService.Services
@@ -9,14 +10,14 @@ namespace BookingService.Services
     public class BookingService : IBookingService
     {
 
-        public static List<Booking> Bookings { get; set; }
+        public static List<BookingEntity> Bookings { get; set; }
         
         static BookingService()
         {
-            Bookings = new List<Booking>();
+            Bookings = new List<BookingEntity>();
         }
 
-        public Booking Add(Booking booking)
+        public BookingEntity Add(BookingEntity booking)
         {
             //var alreadyExist = GetBooking(booking.CustomerId,booking.PartnerId);
 
@@ -31,12 +32,12 @@ namespace BookingService.Services
             return booking;
         }
 
-        public List<Booking> Get()
+        public List<BookingEntity> Get()
         {
             return Bookings;
         }
 
-        public Booking Get(Guid id)
+        public BookingEntity Get(Guid id)
         {
             return Bookings.FirstOrDefault(p => p.Id == id);
         }
@@ -44,10 +45,10 @@ namespace BookingService.Services
 
 
 
-        public Booking Update(Guid id, Booking booking)
+        public BookingEntity Update(Guid id, BookingEntity booking)
         {
             Bookings.Remove(booking);
-            var updatedCustomer = new Booking();
+            var updatedCustomer = new BookingEntity();
             Bookings.Add(updatedCustomer);
             return updatedCustomer;
         }

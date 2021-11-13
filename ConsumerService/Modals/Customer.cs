@@ -27,7 +27,7 @@ namespace ConsumerService.Modals
         [Required] public string LastName { get; set; }
 
         [Required] public string Gender { get; set; }
-
+        [Required] public string PhoneNumber { get; set; }
         [Required] public string Address { get; set; }
 
         public long AreaCode { get; set; }

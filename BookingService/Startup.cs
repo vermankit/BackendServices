@@ -1,3 +1,5 @@
+using System;
+using System.Net.Http;
 using BookingService.Services.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -5,6 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Polly;
+using Polly.Extensions.Http;
+using Shared.Clients;
+using Shared.Clients.Interface;
 
 namespace BookingService
 {
@@ -21,10 +27,27 @@ namespace BookingService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddHttpClient<IBookingClient, BookingClient>(client =>
+            {
+                client.BaseAddress = new Uri(Configuration["Application:ConsumerProvider"]);
+            }).AddPolicyHandler(GetRetryPolicy()).AddPolicyHandler(GetCircuitBreakerPolicy());
+
+            services.AddHttpClient<IPartnerClient, PartnerClient>(client =>
+            {
+                client.BaseAddress = new Uri(Configuration["Application:PartnerProvider"]);
+            }).AddPolicyHandler(GetRetryPolicy()).AddPolicyHandler(GetCircuitBreakerPolicy());
+
+            services.AddHttpClient<INotificationClient, NotificationClient>(client =>
+            {
+                client.BaseAddress = new Uri(Configuration["Application:NotificationProvider"]);
+            }).AddPolicyHandler(GetRetryPolicy()).AddPolicyHandler(GetCircuitBreakerPolicy());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookingService", Version = "v1" });
             });
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddTransient<IBookingService, Services.BookingService>();
         }
 
@@ -45,6 +68,19 @@ namespace BookingService
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+
+        private IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()  //Many faults are transient and may self-correct after a short delay Like 404 
+        {
+            return HttpPolicyExtensions.HandleTransientHttpError()
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+                .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(2));
+        }
+        private IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy()
+        {
+            return HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));  //Http5XX HTTP408 Request timeout
         }
     }
 }
