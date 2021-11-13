@@ -2,5 +2,6 @@
 {
     public interface IBookingClient
     {
+        public dynamic AddBooking();
     }
 }

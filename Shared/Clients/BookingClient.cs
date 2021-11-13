@@ -10,5 +10,10 @@ namespace Shared.Clients
         {
             _httpClient = httpClient;
         }
+
+        public dynamic AddBooking()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

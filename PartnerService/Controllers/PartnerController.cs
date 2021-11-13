@@ -24,7 +24,7 @@ namespace PartnerService.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public Partner Get(Guid id)
         {
             return _partnerService.Get(id);
