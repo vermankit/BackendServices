@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using PartnerService.Modals;
-using PartnerService.Services.Interface;
+using PartnerService.Repositories.Interface;
 
 namespace PartnerService.Controllers
 {
@@ -10,9 +10,9 @@ namespace PartnerService.Controllers
     [ApiController]
     public class PartnerController : ControllerBase
     {
-        private readonly IPartnerService _partnerService;
+        private readonly IPartnerRepository _partnerService;
 
-        public PartnerController(IPartnerService partnerService)
+        public PartnerController(IPartnerRepository partnerService)
         {
             _partnerService = partnerService;
         }

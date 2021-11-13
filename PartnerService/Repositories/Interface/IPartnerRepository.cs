@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using PartnerService.Modals;
 
-namespace PartnerService.Services.Interface
+namespace PartnerService.Repositories.Interface
 {
-    public interface IPartnerService
+    public interface IPartnerRepository
     {
         Partner Add(Partner partner);
         List<Partner> Get();

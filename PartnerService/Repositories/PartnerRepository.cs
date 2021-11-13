@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using PartnerService.Enum;
-
 using PartnerService.Modals;
-using PartnerService.Services.Interface;
+using PartnerService.Repositories.Interface;
 
-
-namespace PartnerService.Services
+namespace PartnerService.Repositories
 {
-    public class PartnerService : IPartnerService
+    public class PartnerRepository : IPartnerRepository
     {
-        static PartnerService()
+        static PartnerRepository()
         {
             Partners = new List<Partner>()
 

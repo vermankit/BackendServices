@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using BookingService.Modals;
+using BookingService.Repositories.Interface;
 using BookingService.Services.Entity;
-using BookingService.Services.Interface;
 
-namespace BookingService.Services
+namespace BookingService.Repositories
 {
-    public class BookingService : IBookingService
+    public class BookingRepository : IBookingRepository
     {
 
         public static List<BookingEntity> Bookings { get; set; }
         
-        static BookingService()
+        static BookingRepository()
         {
             Bookings = new List<BookingEntity>();
         }

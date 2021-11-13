@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using AutoMapper;
 using BookingService.Modals;
+using BookingService.Repositories.Interface;
 using BookingService.Services.Entity;
-using BookingService.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,10 +14,10 @@ namespace BookingService.Controllers
     [ApiController]
     public class BookingController : ControllerBase
     {
-        private readonly IBookingService _bookingService;
+        private readonly IBookingRepository _bookingService;
         private readonly IMapper _mapper;
 
-        public BookingController(IBookingService customerService, IMapper mapper)
+        public BookingController(IBookingRepository customerService, IMapper mapper)
         {
             _bookingService = customerService;
             _mapper = mapper;

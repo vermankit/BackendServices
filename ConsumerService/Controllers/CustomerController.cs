@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ConsumerService.Modals;
-using ConsumerService.Services.Interface;
+using ConsumerService.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,9 +12,9 @@ namespace ConsumerService.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly ICustomerService _customerService;
+        private readonly ICustomerRepository _customerService;
 
-        public CustomerController(ICustomerService customerService)
+        public CustomerController(ICustomerRepository customerService)
         {
             _customerService = customerService;
         }

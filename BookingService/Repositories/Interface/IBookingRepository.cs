@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using BookingService.Modals;
 using BookingService.Services.Entity;
 
-namespace BookingService.Services.Interface
+namespace BookingService.Repositories.Interface
 {
-    public interface IBookingService
+    public interface IBookingRepository
     {
         BookingEntity Add(BookingEntity partner);
         List<BookingEntity> Get();

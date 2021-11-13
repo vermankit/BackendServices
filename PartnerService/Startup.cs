@@ -6,7 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using PartnerService.Services.Interface;
+using PartnerService.Repositories;
+using PartnerService.Repositories.Interface;
 using Polly;
 using Polly.Extensions.Http;
 using Shared.Clients;
@@ -46,7 +47,7 @@ namespace PartnerService
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PartnerService", Version = "v1" });
             });
 
-            services.AddTransient<IPartnerService, Services.PartnerService>();
+            services.AddTransient<IPartnerRepository, PartnerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

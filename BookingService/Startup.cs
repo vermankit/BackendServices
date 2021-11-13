@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
-using BookingService.Services.Interface;
+using BookingService.Repositories;
+using BookingService.Repositories.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -48,7 +49,7 @@ namespace BookingService
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookingService", Version = "v1" });
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddTransient<IBookingService, Services.BookingService>();
+            services.AddTransient<IBookingRepository, BookingRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

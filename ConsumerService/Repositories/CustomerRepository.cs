@@ -1,18 +1,18 @@
-﻿using ConsumerService.Modals;
-using ConsumerService.Services.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
- using System.Linq;
+using System.Linq;
+using ConsumerService.Modals;
+using ConsumerService.Repository.Interface;
 
- namespace ConsumerService.Services
+namespace ConsumerService.Repository
 {
-    public class CustomerService : ICustomerService
+    public class CustomerRepository : ICustomerRepository
     {
 
         public static List<Customer> Customers { get; set; }
 
 
-        static CustomerService()
+        static CustomerRepository()
         {
             Customers = new List<Customer>
             {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using ConsumerService.Modals;
 
-namespace ConsumerService.Services.Interface
+namespace ConsumerService.Repository.Interface
 {
-    public interface ICustomerService
+    public interface ICustomerRepository
     {
         Customer Add(Customer partner);
         List<Customer> Get();
