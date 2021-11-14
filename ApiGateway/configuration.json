@@ -50,7 +50,7 @@
       "UpstreamPathTemplate": "/customer/{id}",
       "UpstreamHttpMethod": [ "GET", "PUT" ],
       "UseServiceDiscovery": true,
-      "ServiceName": "CustomerApi",
+      "ServiceName": "ConsumerApi",
       "LoadBalancerOptions": {
         "Type": "RoundRobin"
       }
@@ -61,7 +61,7 @@
       "UpstreamPathTemplate": "/customer",
       "UpstreamHttpMethod": [ "GET", "POST" ],
       "UseServiceDiscovery": true,
-      "ServiceName": "CustomerApi",
+      "ServiceName": "ConsumerApi",
       "LoadBalancerOptions": {
         "Type": "RoundRobin"
       }

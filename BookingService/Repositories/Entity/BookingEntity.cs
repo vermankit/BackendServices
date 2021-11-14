@@ -1,8 +1,7 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using BookingService.Enums;
 
-namespace BookingService.Services.Entity
+namespace BookingService.Repositories.Entity
 {
     public class BookingEntity
     {

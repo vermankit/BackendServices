@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BookingService.Modals;
-using BookingService.Services.Entity;
+using BookingService.Repositories.Entity;
 
 namespace BookingService.Mapper
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BookingService.Services.Entity;
+using BookingService.Repositories.Entity;
 
 namespace BookingService.Repositories.Interface
 {

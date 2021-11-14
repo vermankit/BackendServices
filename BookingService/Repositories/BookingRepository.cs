@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using BookingService.Modals;
+using BookingService.Repositories.Entity;
 using BookingService.Repositories.Interface;
-using BookingService.Services.Entity;
 
 namespace BookingService.Repositories
 {

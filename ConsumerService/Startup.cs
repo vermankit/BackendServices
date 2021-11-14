@@ -78,7 +78,7 @@ namespace ConsumerService
         {
             return HttpPolicyExtensions.HandleTransientHttpError()
                 .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
-                .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(2));
+                .WaitAndRetryAsync(5, _ => TimeSpan.FromSeconds(2));
         }
         private IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy()
         {
