@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PartnerService.Modals;
+using PartnerService.Repositories.Entity;
 using PartnerService.Repositories.Interface;
+using System.Collections.Generic;
 
 namespace PartnerService.Controllers
 {
@@ -11,37 +12,51 @@ namespace PartnerService.Controllers
     public class PartnerController : ControllerBase
     {
         private readonly IPartnerRepository _partnerService;
+        private readonly IMapper _mapper;
 
-        public PartnerController(IPartnerRepository partnerService)
+        public PartnerController(IPartnerRepository partnerService, IMapper mapper)
         {
             _partnerService = partnerService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IEnumerable<Partner> Get()
         {
-            return _partnerService.Get();
+            return _mapper.Map<List<Partner>>(_partnerService.Get());
         }
 
 
-        [HttpGet("{id:guid}")]
-        public Partner Get(Guid id)
+        [HttpGet("{email}")]
+        public IActionResult Get(string email)
         {
-            return _partnerService.Get(id);
+            var result = _partnerService.Get(email);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<Partner>(result));
         }
 
         // POST api/<PartnerController>
         [HttpPost]
         public Partner Post([FromBody] Partner partner)
         {
-            return _partnerService.Add(partner);
+            return _mapper.Map<Partner>(_partnerService.Add(_mapper.Map<PartnerEntity>(partner)));
         }
 
 
-        [HttpPut("{id:guid}")]
-        public void Put(Guid id, [FromBody] Partner partner)
+        [HttpPut("{email}")]
+        public IActionResult Put(string email, [FromBody] Partner partner)
         {
-            _partnerService.Update(id, partner);
+             var result = _partnerService.Get(email);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<Partner>(_partnerService.Update(email, _mapper.Map<PartnerEntity>(partner))));
         }
     }
 }

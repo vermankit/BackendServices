@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using PartnerService.Enum;
-using PartnerService.Modals;
+using PartnerService.Repositories.Entity;
 using PartnerService.Repositories.Interface;
 
 namespace PartnerService.Repositories
@@ -11,7 +11,7 @@ namespace PartnerService.Repositories
     {
         static PartnerRepository()
         {
-            Partners = new List<Partner>()
+            PartnerEntities = new List<PartnerEntity>()
 
             {
                 new()
@@ -37,41 +37,55 @@ namespace PartnerService.Repositories
             };
         }
 
-        public static List<Partner> Partners { get; set; }
+        public static List<PartnerEntity> PartnerEntities { get; set; }
 
-        public Partner Add(Partner partner)
+        public PartnerEntity Add(PartnerEntity partnerEntity)
         {
-            var alreadyExist = GetPartnersByEmail(partner.Email);
+            var alreadyExist = GetPartnerEntityByEmail(partnerEntity.Email);
 
             if (alreadyExist != null) return alreadyExist;
 
-            partner.Id = partner.Id != default ? partner.Id : Guid.NewGuid();
-            Partners.Add(partner);
+            partnerEntity.Id = partnerEntity.Id != default ? partnerEntity.Id : Guid.NewGuid();
+            PartnerEntities.Add(partnerEntity);
 
-            return partner;
+            return partnerEntity;
         }
 
-        public List<Partner> Get()
+        public List<PartnerEntity> Get()
         {
-            return Partners;
+            return PartnerEntities;
         }
 
-        public Partner Get(Guid id)
+        public PartnerEntity Get(string email)
         {
-            return Partners.FirstOrDefault(p => p.Id == id);
+            return PartnerEntities.FirstOrDefault(p => p.Email == email);
         }
 
-        public Partner Update(Guid id, Partner partner)
+        public PartnerEntity Update(string email, PartnerEntity partnerEntity)
         {
-            Partners.Remove(partner);
-            var updatedPartner = new Partner(id, partner);
-            Partners.Add(updatedPartner);
-            return updatedPartner;
+            var existedCustomer = Get(email);
+            if (existedCustomer != null)
+            {
+                return null;
+            }
+
+            var updatedCustomer = new PartnerEntity()
+            {
+                AreaCode = partnerEntity.AreaCode,
+                FirstName = partnerEntity.FirstName,
+                LastName = partnerEntity.LastName,
+                Gender = partnerEntity.Gender,
+                Id = partnerEntity.Id
+            };
+
+
+            PartnerEntities.Add(updatedCustomer);
+            return updatedCustomer;
         }
 
-        public Partner GetPartnersByEmail(string email)
+        public PartnerEntity GetPartnerEntityByEmail(string email)
         {
-            return Partners.FirstOrDefault(p => p.Email == email);
+            return PartnerEntities.FirstOrDefault(p => p.Email == email);
         }
     }
 }

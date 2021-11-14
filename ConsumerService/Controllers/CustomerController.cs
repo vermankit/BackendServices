@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
 using ConsumerService.Modals;
-using ConsumerService.Repository.Interface;
+using ConsumerService.Repositories.Entity;
+using ConsumerService.Repositories.Interface;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,38 +14,54 @@ namespace ConsumerService.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerRepository _customerService;
+        private readonly IMapper _mapper;
 
-        public CustomerController(ICustomerRepository customerService)
+        public CustomerController(ICustomerRepository customerService, IMapper mapper)
         {
             _customerService = customerService;
+            _mapper = mapper;
         }
 
         // GET: api/<CustomerController>
         [HttpGet]
         public IEnumerable<Customer> Get()
         {
-            return _customerService.Get();
+            return _mapper.Map<List<Customer>>(_customerService.Get());
         }
 
         // GET api/<CustomerController>/5
-        [HttpGet("{id}")]
-        public Customer Get(Guid id)
+        [HttpGet("{email}")]
+        public IActionResult Get(string email)
         {
-            return _customerService.Get(id);
+            var result = _customerService.Get(email);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<Customer>(result));
         }
 
         // POST api/<CustomerController>
         [HttpPost]
         public Customer Post([FromBody] Customer customer)
         {
-            return _customerService.Add(customer);
+            return _mapper.Map<Customer>(_customerService.Add(_mapper.Map<CustomerEntity>(customer)));
         }
 
         // PUT api/<CustomerController>/5
-        [HttpPut("{id}")]
-        public Customer Put(Guid id, [FromBody] Customer customer)
+        [HttpPut("{email}")]
+        public IActionResult Put(string email, [FromBody] Customer customer)
         {
-            return _customerService.Update(id, customer);
+            var result = _customerService.Get(email);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<Customer>(_customerService.Update(email, _mapper.Map<CustomerEntity>(customer))));
         }
+
+
     }
 }

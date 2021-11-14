@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using ConsumerService.Modals;
+﻿using System.Collections.Generic;
+using ConsumerService.Repositories.Entity;
 
-namespace ConsumerService.Repository.Interface
+namespace ConsumerService.Repositories.Interface
 {
     public interface ICustomerRepository
     {
-        Customer Add(Customer partner);
-        List<Customer> Get();
-        Customer Get(Guid id);
-        Customer Update(Guid id, Customer partner);
+        CustomerEntity Add(CustomerEntity partner);
+        List<CustomerEntity> Get();
+        CustomerEntity Get(string email);
+        CustomerEntity Update(string email, CustomerEntity partner);
     }
 }

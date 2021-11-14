@@ -1,7 +1,4 @@
-using System;
-using System.Net.Http;
-using ConsumerService.Repository;
-using ConsumerService.Repository.Interface;
+using ConsumerService.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +10,11 @@ using Polly.Extensions.Http;
 using Shared.Clients;
 using Shared.Clients.Interface;
 using Steeltoe.Discovery.Client;
+using System;
+using System.Net.Http;
+using AutoMapper;
+using ConsumerService.Mapper;
+using ConsumerService.Repositories.Interface;
 
 namespace ConsumerService
 {
@@ -49,6 +51,13 @@ namespace ConsumerService
             });
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddDiscoveryClient(Configuration);
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            var mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,8 +80,6 @@ namespace ConsumerService
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
-
-
 
         private IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()  //Many faults are transient and may self-correct after a short delay Like 404 
         {

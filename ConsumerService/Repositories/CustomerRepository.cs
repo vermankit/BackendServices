@@ -1,20 +1,20 @@
-﻿using System;
+﻿using ConsumerService.Repositories.Entity;
+using ConsumerService.Repositories.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using ConsumerService.Modals;
-using ConsumerService.Repository.Interface;
 
-namespace ConsumerService.Repository
+namespace ConsumerService.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
 
-        public static List<Customer> Customers { get; set; }
+        public static List<CustomerEntity> Customers { get; set; }
 
 
         static CustomerRepository()
         {
-            Customers = new List<Customer>
+            Customers = new List<CustomerEntity>
             {
                 new()
                 {
@@ -40,15 +40,12 @@ namespace ConsumerService.Repository
         }
 
 
-        public Customer Add(Customer customer)
+        public CustomerEntity Add(CustomerEntity customer)
         {
             var alreadyExist = GetCustomersByEmail(customer.Email);
 
 
             if (alreadyExist != null) return alreadyExist;
-
-           
-
 
             customer.Id = customer.Id != default ? customer.Id : Guid.NewGuid();
             Customers.Add(customer);
@@ -56,26 +53,42 @@ namespace ConsumerService.Repository
             return customer;
         }
 
-        public List<Customer> Get()
+        public List<CustomerEntity> Get()
         {
             return Customers;
         }
 
-        public Customer Get(Guid id)
+        public CustomerEntity Get(string email)
         {
-            return Customers.FirstOrDefault(p => p.Id == id);
+            return Customers.FirstOrDefault(p => p.Email == email);
         }
 
-        public Customer Update(Guid id, Customer customer)
+        public CustomerEntity Update(string email, CustomerEntity customer)
         {
-            Customers.Remove(customer);
-            var updatedCustomer = new Customer(id, customer);
+            var existedCustomer = Get(email);
+            if (existedCustomer != null)
+            {
+                return null;
+            }
+          
+            var updatedCustomer = new CustomerEntity()
+            {
+                Address = customer.Address,
+                AreaCode = customer.AreaCode,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Gender = customer.Gender,
+                Id = customer.Id,
+                PhoneNumber = customer.PhoneNumber
+            };
+            
+           
             Customers.Add(updatedCustomer);
             return updatedCustomer;
         }
 
 
-        public Customer GetCustomersByEmail(string email)
+        public CustomerEntity GetCustomersByEmail(string email)
         {
             return Customers.FirstOrDefault(p => p.Email == email);
         }

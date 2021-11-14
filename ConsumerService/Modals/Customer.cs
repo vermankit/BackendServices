@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ConsumerService.Modals
 {
@@ -9,18 +8,14 @@ namespace ConsumerService.Modals
         {
         }
 
-        public Customer(Guid id, Customer customer)
+        public Customer(Customer customer)
         {
-            Id = id;
             Address = customer.Address;
             Email = customer.Email;
             FirstName = customer.FirstName;
             LastName = customer.LastName;
             Gender = customer.Gender;
         }
-
-        public Guid Id { get; set; }
-
 
         [Required] public string FirstName { get; set; }
 
@@ -35,7 +30,5 @@ namespace ConsumerService.Modals
         [Required]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
-
-
     }
 }
