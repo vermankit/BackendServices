@@ -12,6 +12,7 @@ using Polly;
 using Polly.Extensions.Http;
 using Shared.Clients;
 using Shared.Clients.Interface;
+using Steeltoe.Discovery.Client;
 
 namespace BookingService
 {
@@ -50,6 +51,7 @@ namespace BookingService
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddTransient<IBookingRepository, BookingRepository>();
+            services.AddDiscoveryClient(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +64,8 @@ namespace BookingService
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookingService v1"));
             }
 
-            app.UseHttpsRedirection();
+            app.UseDiscoveryClient();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

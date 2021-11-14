@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Steeltoe.Discovery.Client;
 
 namespace NotificationService
 {
@@ -24,6 +25,7 @@ namespace NotificationService
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NotificationService", Version = "v1" });
             });
+            services.AddDiscoveryClient(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,8 +38,8 @@ namespace NotificationService
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NotificationService v1"));
             }
 
-            app.UseHttpsRedirection();
-
+            //app.UseHttpsRedirection();
+            app.UseDiscoveryClient();
             app.UseRouting();
 
             app.UseAuthorization();

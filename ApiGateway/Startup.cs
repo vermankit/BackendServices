@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Provider.Eureka;
 
 namespace ApiGateway
 {
@@ -28,7 +29,7 @@ namespace ApiGateway
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gateway.Api", Version = "v1" });
             });
 
-            services.AddOcelot(Configuration);
+            services.AddOcelot(Configuration).AddEureka();
 
         }
 

@@ -3,101 +3,94 @@
     {
       "DownstreamPathTemplate": "/api/partner/{id}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
       "UpstreamPathTemplate": "/partner/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT" ]
+      "UseServiceDiscovery": true,
+      "ServiceName": "PartnerApi",
+      "UpstreamHttpMethod": [ "GET", "PUT" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/partner",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
       "UpstreamPathTemplate": "/partner",
-      "UpstreamHttpMethod": [ "GET", "POST" ]
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "UseServiceDiscovery": true,
+      "ServiceName": "PartnerApi",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/booking/{id}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5000
-        }
-      ],
       "UpstreamPathTemplate": "/booking/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT" ]
+      "UpstreamHttpMethod": [ "GET", "PUT" ],
+      "UseServiceDiscovery": true,
+      "ServiceName": "BookingApi",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/booking",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5000
-        }
-      ],
       "UpstreamPathTemplate": "/booking",
-      "UpstreamHttpMethod": [ "GET", "POST" ]
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "UseServiceDiscovery": true,
+      "ServiceName": "BookingApi",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/customer/{id}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ],
       "UpstreamPathTemplate": "/customer/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT" ]
+      "UpstreamHttpMethod": [ "GET", "PUT" ],
+      "UseServiceDiscovery": true,
+      "ServiceName": "CustomerApi",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/customer",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ],
       "UpstreamPathTemplate": "/customer",
-      "UpstreamHttpMethod": [ "GET", "POST" ]
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "UseServiceDiscovery": true,
+      "ServiceName": "CustomerApi",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/notification/{id}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5002
-        }
-      ],
       "UpstreamPathTemplate": "/notification/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT" ]
+      "UpstreamHttpMethod": [ "GET", "PUT" ],
+      "UseServiceDiscovery": true,
+      "ServiceName": "NotificationApi",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/notification",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5002
-        }
-      ],
       "UpstreamPathTemplate": "/notification",
-      "UpstreamHttpMethod": [ "GET", "POST" ]
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "UseServiceDiscovery": true,
+      "ServiceName": "NotificationApi",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:7000"
+    "BaseUrl": "http://localhost:7000",
+    "ServiceDiscoveryProvider": { "Type": "Eureka" }
   }
 }

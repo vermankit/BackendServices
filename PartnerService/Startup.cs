@@ -12,6 +12,7 @@ using Polly;
 using Polly.Extensions.Http;
 using Shared.Clients;
 using Shared.Clients.Interface;
+using Steeltoe.Discovery.Client;
 
 namespace PartnerService
 {
@@ -47,7 +48,8 @@ namespace PartnerService
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PartnerService", Version = "v1" });
             });
 
-            services.AddTransient<IPartnerRepository, PartnerRepository>();
+            services.AddScoped<IPartnerRepository, PartnerRepository>();
+            services.AddDiscoveryClient(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +61,7 @@ namespace PartnerService
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PartnerService v1"));
             }
-
+            app.UseDiscoveryClient();
             //app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -73,7 +75,7 @@ namespace PartnerService
         {
             return HttpPolicyExtensions.HandleTransientHttpError()
                 .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
-                .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(2));
+                .WaitAndRetryAsync(5, _ => TimeSpan.FromSeconds(2));
         }
         private static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy()
         {
