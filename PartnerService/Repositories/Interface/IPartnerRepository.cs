@@ -9,6 +9,7 @@ namespace PartnerService.Repositories.Interface
         PartnerEntity Add(PartnerEntity partner);
         List<PartnerEntity> Get();
         PartnerEntity Get(string email);
+        List<PartnerEntity> GetByAreaCode(long areaCode);
         PartnerEntity Update(string email, PartnerEntity partner);
     }
 }

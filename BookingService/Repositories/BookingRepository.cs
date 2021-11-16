@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BookingService.Modals;
+﻿using BookingService.Enums;
 using BookingService.Repositories.Entity;
 using BookingService.Repositories.Interface;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BookingService.Repositories
 {
@@ -19,14 +19,15 @@ namespace BookingService.Repositories
 
         public BookingEntity Add(BookingEntity booking)
         {
-            //var alreadyExist = GetBooking(booking.CustomerId,booking.PartnerId);
+            var alreadyExist = GetBooking(booking);
 
-            //if (alreadyExist != null)
-            //{
-            //    return alreadyExist;
-            //}
+            if (alreadyExist != null)
+            {
+                return alreadyExist;
+            }
 
             booking.Id = booking.Id != default ? booking.Id : Guid.NewGuid();
+            booking.Status = Status.Pending;
             Bookings.Add(booking);
 
             return booking;
@@ -47,16 +48,28 @@ namespace BookingService.Repositories
 
         public BookingEntity Update(Guid id, BookingEntity booking)
         {
-            Bookings.Remove(booking);
-            var updatedCustomer = new BookingEntity();
-            Bookings.Add(updatedCustomer);
-            return updatedCustomer;
+            var existingBooking = Bookings.FirstOrDefault(item => item.Id == id);
+
+            if (existingBooking != null)
+            {
+                existingBooking.CustomerEmail = booking.CustomerEmail;
+                existingBooking.AreaCode = booking.AreaCode;
+                existingBooking.ServiceProvideEmail = booking.ServiceProvideEmail;
+                existingBooking.Status = booking.Status;
+                existingBooking.RequestedService = booking.RequestedService;
+                existingBooking.Slot = booking.Slot;
+                Bookings.Add(existingBooking);
+            }
+
+           
+            return existingBooking;
         }
 
 
-        public Booking GetBooking(string email)
+        public BookingEntity GetBooking(BookingEntity bookingEntity)
         {
-            return null;
+            return Bookings.FirstOrDefault(b => b.CustomerEmail == bookingEntity.CustomerEmail
+            && b.Slot == bookingEntity.Slot);
         }
     }
 }

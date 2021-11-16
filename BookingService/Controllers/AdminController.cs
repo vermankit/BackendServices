@@ -5,7 +5,9 @@ using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Shared.Clients.Interface;
+using Shared.Message;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,15 +21,20 @@ namespace BookingService.Controllers
         private readonly IMapper _mapper;
         private readonly IPublishEndpoint _publishEndpoint;
         private readonly IPartnerClient _partnerClient;
+        private readonly IConsumerClient _consumerClient;
+        private readonly IConfiguration _configuration;
+
 
         public AdminController(IBookingRepository customerService
             , IMapper mapper, IPublishEndpoint publishEndpoint,
-            IPartnerClient partnerClient)
+            IPartnerClient partnerClient, IConfiguration configuration, IConsumerClient consumerClient)
         {
             _bookingService = customerService;
             _mapper = mapper;
             _publishEndpoint = publishEndpoint;
             _partnerClient = partnerClient;
+            _configuration = configuration;
+            _consumerClient = consumerClient;
         }
 
         [HttpPatch("booking/{bookingId}/change-status/{status}")]
@@ -46,19 +53,59 @@ namespace BookingService.Controllers
         }
 
 
-        [HttpPatch("booking/{Id}/assign-partner/{email}")]
-        public async Task<IActionResult> AssignPartner(Guid Id, string email)
+        [HttpPatch("booking/{id}/assign-partner/{email}")]
+        public async Task<IActionResult> AssignPartner(Guid id, string email)
         {
-            var booking = _bookingService.Get(Id);
+            var booking = _bookingService.Get(id);
+
+            if (booking == null)
+            {
+                return NotFound();
+            }
+            var partner  = await _partnerClient.GetPartner(email);
+            var customer = await _consumerClient.GetCustomer(booking.CustomerEmail);
+            booking.ServiceProvideEmail = partner.Email;
+            booking.Status = Status.Processing;
+            await _publishEndpoint.Publish(new EmailMessage()
+            {
+                Message = $"Booking Received for Address : {customer.Address} , Contact Number {customer.PhoneNumber} SlotTime {booking.Slot} " +
+                          $"Please click on below link to approve or deny" +
+                          $"{_configuration["Application:Gateway"]}/booking/{id}/partner/{email}/change-status/2,{_configuration["Application:Gateway"]}booking/{id}/partner/{email}/change-status/5",
+                Subject = "Booking Received",
+                To = partner.Email
+            });
+
+            _bookingService.Update(id, booking);
+            return Ok();
+        }
+
+        [HttpPatch("booking/{id}/partner/{email}/change-status/{status}")]
+        public async Task<IActionResult> ChangeBookingStatus(Guid id, string email,Status status)
+        {
+            var booking = _bookingService.Get(id);
 
             if (booking == null)
             {
                 return NotFound();
             }
 
-            var partner  = await _partnerClient.GetPartner(email);
-            booking.ServiceProvideEmail = partner.Email;
-            _bookingService.Update(Id, booking);
+            var partner = await _partnerClient.GetPartner(email);
+            var customer = await _consumerClient.GetCustomer(booking.CustomerEmail);
+
+            if (partner == null)
+            {
+                return NotFound();
+            }
+
+            booking.Status = status;
+            await _publishEndpoint.Publish(new EmailMessage()
+            {
+                Message = $"Partner Assigned for booking {booking.RequestedService} at {booking.Slot} Partner Contact Number {partner.PhoneNumber}",
+                Subject = "Booking Confirmed",
+                To = customer.Email
+            });
+
+            _bookingService.Update(id, booking);
             return Ok();
         }
 

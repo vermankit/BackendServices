@@ -3,10 +3,11 @@ namespace BookingService.Enums
 {
     public enum Status
     {
-        Pending,
+        Pending =1 ,
         Deny,
         Completed,
-        Approved,
+        Processing,
+        Approve,
     }
 
 }

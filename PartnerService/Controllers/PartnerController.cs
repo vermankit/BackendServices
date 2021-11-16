@@ -39,6 +39,18 @@ namespace PartnerService.Controllers
             return Ok(_mapper.Map<Partner>(result));
         }
 
+        [HttpGet("{areacode}")]
+        public IActionResult GetByAreaCode(long areaCode)
+        {
+            var result = _partnerService.GetByAreaCode(areaCode);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<Partner>(result));
+        }
+
         // POST api/<PartnerController>
         [HttpPost]
         public Partner Post([FromBody] Partner partner)

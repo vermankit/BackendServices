@@ -61,6 +61,11 @@ namespace PartnerService.Repositories
             return PartnerEntities.FirstOrDefault(p => p.Email == email);
         }
 
+        public List<PartnerEntity> GetByAreaCode(long areaCode)
+        {
+            return PartnerEntities.Where(p => p.AreaCode == areaCode).ToList();
+        }
+
         public PartnerEntity Update(string email, PartnerEntity partnerEntity)
         {
             var existedCustomer = Get(email);

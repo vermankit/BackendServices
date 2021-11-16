@@ -6,11 +6,11 @@ namespace BookingService.Modals
 {
     public class Booking
     {
-        [Required] public Guid CustomerId { get; set; }
-        [Required] public Guid PartnerId { get; set; }
+        [Required] public string CustomerEmail { get; set; }
+        [Required]
         public Service RequestedService { get; set; }
         [Required] public DateTime Slot { get; set; }
-        public Status Status { get; set; } = Status.Pending;
+        [Required] public string AreaCode { get; set; }
     }
 
 }
