@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using BookingService.Enums;
 using BookingService.Modals;
 using BookingService.Repositories.Entity;
 using BookingService.Repositories.Interface;
@@ -66,6 +67,22 @@ namespace BookingService.Controllers
             var result = _bookingService.Update(id,_mapper.Map<BookingEntity>(booking));
             return _mapper.Map<Booking>(result); 
         }
+
+        [HttpPatch("{bookingId}/change-status/{status}")]
+        public IActionResult ApprovedBooking(Guid bookingId,Status status)
+        {
+            var booking = _bookingService.Get(bookingId);
+
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            booking.Status = status;
+            _bookingService.Update(bookingId,booking);
+            return Ok();
+        }
+
     }
 }
 

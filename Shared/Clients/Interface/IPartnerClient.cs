@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Shared.Clients.Models;
 
 namespace Shared.Clients.Interface
 {
     public interface IPartnerClient
     {
-        Task<dynamic> GetPartner(Guid partnerId);
+        Task<Partner> GetPartner(string email);
     }
 }

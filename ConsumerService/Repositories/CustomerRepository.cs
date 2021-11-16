@@ -66,11 +66,11 @@ namespace ConsumerService.Repositories
         public CustomerEntity Update(string email, CustomerEntity customer)
         {
             var existedCustomer = Get(email);
-            if (existedCustomer != null)
+            if (existedCustomer == null)
             {
                 return null;
             }
-          
+            
             var updatedCustomer = new CustomerEntity()
             {
                 Address = customer.Address,
@@ -78,11 +78,12 @@ namespace ConsumerService.Repositories
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Gender = customer.Gender,
-                Id = customer.Id,
+                Id = existedCustomer.Id,
                 PhoneNumber = customer.PhoneNumber
             };
-            
-           
+
+            var findIndex = Customers.FindIndex(e => e.Id == existedCustomer.Id);
+            Customers.RemoveAt(findIndex);
             Customers.Add(updatedCustomer);
             return updatedCustomer;
         }

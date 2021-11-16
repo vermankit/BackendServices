@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Shared.Clients.Interface;
+using Shared.Clients.Models;
 
 namespace Shared.Clients
 {
@@ -13,9 +15,9 @@ namespace Shared.Clients
             _httpClient = httpClient;
         }
 
-        public async Task<dynamic> GetPartner(Guid partnerId)
+        public async Task<Partner> GetPartner(string email)
         {
-            var response = await _httpClient.GetAsync($"/partner/{partnerId}");
+            var response = await _httpClient.GetFromJsonAsync<Partner>($"/partner/{email}");
             return response;
         }
     }

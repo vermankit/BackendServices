@@ -64,7 +64,7 @@ namespace PartnerService.Repositories
         public PartnerEntity Update(string email, PartnerEntity partnerEntity)
         {
             var existedCustomer = Get(email);
-            if (existedCustomer != null)
+            if (existedCustomer == null)
             {
                 return null;
             }
@@ -75,10 +75,11 @@ namespace PartnerService.Repositories
                 FirstName = partnerEntity.FirstName,
                 LastName = partnerEntity.LastName,
                 Gender = partnerEntity.Gender,
-                Id = partnerEntity.Id
+                Id = existedCustomer.Id
             };
 
-
+            var findIndex = PartnerEntities.FindIndex(i => i.Id == existedCustomer.Id);
+            PartnerEntities.RemoveAt(findIndex);
             PartnerEntities.Add(updatedCustomer);
             return updatedCustomer;
         }
