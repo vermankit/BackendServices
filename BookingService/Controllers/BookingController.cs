@@ -8,6 +8,7 @@ using Shared.Message;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Shared.Clients.Interface;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,12 +20,14 @@ namespace BookingService.Controllers
     {
         private readonly IBookingRepository _bookingService;
         private readonly IMapper _mapper;
-       
+        private readonly IConsumerClient _consumerClient;
 
-        public BookingController(IBookingRepository customerService, IMapper mapper)
+
+        public BookingController(IBookingRepository customerService, IMapper mapper, IConsumerClient consumerClient)
         {
             _bookingService = customerService;
             _mapper = mapper;
+            _consumerClient = consumerClient;
         }
 
         // GET: api/<CustomerController>
@@ -45,12 +48,17 @@ namespace BookingService.Controllers
 
         // POST api/<CustomerController>
         [HttpPost]
-        public async Task<Booking> Post([FromBody] Booking booking)
+        public async Task<IActionResult> Post([FromBody] Booking booking)
         {
-           
+            var customer = await _consumerClient.GetCustomer(booking.CustomerEmail);
+
+            if (customer == null)
+            {
+                return NotFound("Customer not found");
+            }
             var bookingE = _mapper.Map<BookingEntity>(booking);
             var result = _mapper.Map<Booking>(_bookingService.Add(bookingE));
-            return result;
+            return Ok(result);
         }
 
         // PUT api/<CustomerController>/5

@@ -16,7 +16,7 @@ namespace Shared.Clients
 
         public async Task<Customer> GetCustomer(string email)
         {
-            var response = await _httpClient.GetFromJsonAsync<Customer>($"/customer/{email}");
+            var response = await _httpClient.GetFromJsonAsync<Customer>($"api/customer/{email}");
             return response;
         }
     }

@@ -14,7 +14,19 @@ namespace BookingService.Repositories
         
         static BookingRepository()
         {
-            Bookings = new List<BookingEntity>();
+            Bookings = new List<BookingEntity>
+            {
+                new()
+                {
+                    CustomerEmail = "anu.vig@test.com",
+                    Address = "Sample Address",
+                    AreaCode = 101,
+                    Id = Guid.NewGuid(),
+                    Slot = DateTime.Now.AddHours(3),
+                    Status = Status.Pending,
+                    RequestedService = Service.Cleaner
+                }
+            };
         }
 
         public BookingEntity Add(BookingEntity booking)

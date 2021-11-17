@@ -11,6 +11,7 @@ namespace BookingService.Modals
         public Service RequestedService { get; set; }
         [Required] public DateTime Slot { get; set; }
         [Required] public string AreaCode { get; set; }
+        public Status Status { get; set; }
     }
 
 }

@@ -41,7 +41,7 @@ namespace BookingService
             services.AddMassTransitHostedService();
             services.AddControllers();
 
-            services.AddHttpClient<IBookingClient, BookingClient>(client =>
+            services.AddHttpClient<IConsumerClient, ConsumerClient>(client =>
             {
                 client.BaseAddress = new Uri(Configuration["Application:ConsumerProvider"]);
             }).AddPolicyHandler(GetRetryPolicy()).AddPolicyHandler(GetCircuitBreakerPolicy());
@@ -88,7 +88,7 @@ namespace BookingService
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookingService v1"));
             }
 
-            app.UseDiscoveryClient();
+            // app.UseDiscoveryClient();
             //app.UseHttpsRedirection();
 
             app.UseRouting();
