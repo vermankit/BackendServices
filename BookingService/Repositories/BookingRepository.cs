@@ -24,7 +24,8 @@ namespace BookingService.Repositories
                     Id = Guid.NewGuid(),
                     Slot = DateTime.Now.AddHours(3),
                     Status = Status.Pending,
-                    RequestedService = Service.Cleaner
+                    RequestedService = Service.Cleaner,
+                    BookingNumber = "BN12222"
                 }
             };
         }
@@ -38,7 +39,9 @@ namespace BookingService.Repositories
                 return alreadyExist;
             }
 
+            var random = new Random();
             booking.Id = booking.Id != default ? booking.Id : Guid.NewGuid();
+            booking.BookingNumber = $"BK{random.Next()}";
             booking.Status = Status.Pending;
             Bookings.Add(booking);
 
@@ -55,7 +58,10 @@ namespace BookingService.Repositories
             return Bookings.FirstOrDefault(p => p.Id == id);
         }
 
-
+        public BookingEntity Get(string id)
+        {
+            return Bookings.FirstOrDefault(p => p.BookingNumber == id);
+        }
 
 
         public BookingEntity Update(Guid id, BookingEntity booking)
@@ -70,6 +76,8 @@ namespace BookingService.Repositories
                 existingBooking.Status = booking.Status;
                 existingBooking.RequestedService = booking.RequestedService;
                 existingBooking.Slot = booking.Slot;
+                var index = Bookings.FindIndex(i => i.BookingNumber == booking.BookingNumber);
+                Bookings.RemoveAt(index);
                 Bookings.Add(existingBooking);
             }
 

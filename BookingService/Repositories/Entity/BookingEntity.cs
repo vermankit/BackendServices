@@ -13,6 +13,7 @@ namespace BookingService.Repositories.Entity
         public Status Status { get; set; }
         public long AreaCode { get; set; }
         public string Address { get; set; }
+        public string BookingNumber { get; set; }
     }
 
 }

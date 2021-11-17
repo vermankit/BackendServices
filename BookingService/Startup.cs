@@ -88,7 +88,7 @@ namespace BookingService
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookingService v1"));
             }
 
-            // app.UseDiscoveryClient();
+            app.UseDiscoveryClient();
             //app.UseHttpsRedirection();
 
             app.UseRouting();
