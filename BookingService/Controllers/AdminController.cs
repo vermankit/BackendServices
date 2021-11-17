@@ -37,22 +37,6 @@ namespace BookingService.Controllers
             _consumerClient = consumerClient;
         }
 
-        //[HttpPatch("booking/{bookingId}/change-status/{status}")]
-        //public IActionResult ApprovedBooking(Guid bookingId,Status status)
-        //{
-        //    var booking = _bookingService.Get(bookingId);
-
-        //    if (booking == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    booking.Status = status;
-        //    _bookingService.Update(bookingId,booking);
-        //    return Ok();
-        //}
-
-
         [HttpPatch("booking/{id}/assign-partner/{email}")]
         public async Task<IActionResult> AssignPartner(string id, string email)
         {
@@ -73,36 +57,6 @@ namespace BookingService.Controllers
                           $"{_configuration["Application:Gateway"]}/booking/{id}/partner/{email}/change-status/2,{_configuration["Application:Gateway"]}booking/{id}/partner/{email}/change-status/5",
                 Subject = "Booking Received",
                 To = partner.Email
-            });
-
-            _bookingService.Update(booking.BookingNumber, booking);
-            return Ok();
-        }
-
-        [HttpPatch("booking/{id}/partner/{email}/change-status/{status}")]
-        public async Task<IActionResult> ChangeBookingStatus(string id, string email,Status status)
-        {
-            var booking = _bookingService.Get(id);
-
-            if (booking == null)
-            {
-                return NotFound();
-            }
-
-            var partner = await _partnerClient.GetPartner(email);
-            var customer = await _consumerClient.GetCustomer(booking.CustomerEmail);
-
-            if (partner == null)
-            {
-                return NotFound();
-            }
-
-            booking.Status = status;
-            await _publishEndpoint.Publish(new EmailMessage()
-            {
-                Message = $"Partner Assigned for booking {booking.RequestedService} at {booking.Slot} Partner Contact Number {partner.PhoneNumber}",
-                Subject = "Booking Confirmed",
-                To = customer.Email
             });
 
             _bookingService.Update(booking.BookingNumber, booking);

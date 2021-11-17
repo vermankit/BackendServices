@@ -7,7 +7,7 @@ namespace BookingService.Enums
         Deny,
         Completed,
         Processing,
-        Approve,
+        Confirmed,
     }
 
 }

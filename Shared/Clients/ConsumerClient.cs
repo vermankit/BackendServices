@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Shared.Clients.Interface;
@@ -16,7 +17,16 @@ namespace Shared.Clients
 
         public async Task<Customer> GetCustomer(string email)
         {
-            var response = await _httpClient.GetFromJsonAsync<Customer>($"api/customer/{email}");
+            Customer response = null;
+            try
+            {
+                response = await _httpClient.GetFromJsonAsync<Customer>($"api/customer/{email}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
             return response;
         }
     }

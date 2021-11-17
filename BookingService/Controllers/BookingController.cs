@@ -8,6 +8,7 @@ using Shared.Message;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BookingService.Enums;
 using Shared.Clients.Interface;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -21,13 +22,17 @@ namespace BookingService.Controllers
         private readonly IBookingRepository _bookingService;
         private readonly IMapper _mapper;
         private readonly IConsumerClient _consumerClient;
+        private readonly IPartnerClient _partnerClient;
+        private readonly IPublishEndpoint _publishEndpoint;
 
 
-        public BookingController(IBookingRepository customerService, IMapper mapper, IConsumerClient consumerClient)
+        public BookingController(IBookingRepository customerService, IMapper mapper, IConsumerClient consumerClient, IPartnerClient partnerClient, IPublishEndpoint publishEndpoint)
         {
             _bookingService = customerService;
             _mapper = mapper;
             _consumerClient = consumerClient;
+            _partnerClient = partnerClient;
+            _publishEndpoint = publishEndpoint;
         }
 
         // GET: api/<CustomerController>
@@ -67,6 +72,42 @@ namespace BookingService.Controllers
         {
             var result = _bookingService.Update(bookingNumber, _mapper.Map<BookingEntity>(booking));
             return _mapper.Map<Booking>(result); 
+        }
+
+
+        [HttpPatch("{id}/partner/{email}/change-status/{status}")]
+        public async Task<IActionResult> ChangeBookingStatus(string id, string email, Status status)
+        {
+            var booking = _bookingService.Get(id);
+
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            if (booking.Status == Status.Confirmed)
+            {
+                return Ok("Booking Already Confirmed");
+            }
+
+            var partner = await _partnerClient.GetPartner(email);
+            var customer = await _consumerClient.GetCustomer(booking.CustomerEmail);
+
+            if (partner == null)
+            {
+                return NotFound();
+            }
+
+            booking.Status = status;
+            await _publishEndpoint.Publish(new EmailMessage()
+            {
+                Message = $"Partner Assigned for booking {booking.RequestedService} at {booking.Slot} Partner Contact Number {partner.PhoneNumber}",
+                Subject = "Booking Confirmed",
+                To = customer.Email
+            });
+
+            var result = _bookingService.Update(booking.BookingNumber, booking);
+            return Ok(_mapper.Map<Booking>(result));
         }
     }
 }

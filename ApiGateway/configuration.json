@@ -45,6 +45,28 @@
       }
     },
     {
+      "DownstreamPathTemplate": "/api/booking/{id}/partner/{email}/change-status/{status}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/booking/{id}/partner/{email}/change-status/{status}",
+      "UpstreamHttpMethod": [ "PATCH" ],
+      "UseServiceDiscovery": true,
+      "ServiceName": "BookingApi",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/admin/booking/{id}/assign-partner/{email}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/admin/booking/{id}/assign-partner/{email}",
+      "UpstreamHttpMethod": [ "PATCH" ],
+      "UseServiceDiscovery": true,
+      "ServiceName": "BookingApi",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
+    },
+    {
       "DownstreamPathTemplate": "/api/customer/{id}",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/customer/{id}",
