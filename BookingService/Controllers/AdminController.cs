@@ -37,24 +37,24 @@ namespace BookingService.Controllers
             _consumerClient = consumerClient;
         }
 
-        [HttpPatch("booking/{bookingId}/change-status/{status}")]
-        public IActionResult ApprovedBooking(Guid bookingId,Status status)
-        {
-            var booking = _bookingService.Get(bookingId);
+        //[HttpPatch("booking/{bookingId}/change-status/{status}")]
+        //public IActionResult ApprovedBooking(Guid bookingId,Status status)
+        //{
+        //    var booking = _bookingService.Get(bookingId);
 
-            if (booking == null)
-            {
-                return NotFound();
-            }
+        //    if (booking == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            booking.Status = status;
-            _bookingService.Update(bookingId,booking);
-            return Ok();
-        }
+        //    booking.Status = status;
+        //    _bookingService.Update(bookingId,booking);
+        //    return Ok();
+        //}
 
 
         [HttpPatch("booking/{id}/assign-partner/{email}")]
-        public async Task<IActionResult> AssignPartner(Guid id, string email)
+        public async Task<IActionResult> AssignPartner(string id, string email)
         {
             var booking = _bookingService.Get(id);
 
@@ -75,12 +75,12 @@ namespace BookingService.Controllers
                 To = partner.Email
             });
 
-            _bookingService.Update(id, booking);
+            _bookingService.Update(booking.Id, booking);
             return Ok();
         }
 
         [HttpPatch("booking/{id}/partner/{email}/change-status/{status}")]
-        public async Task<IActionResult> ChangeBookingStatus(Guid id, string email,Status status)
+        public async Task<IActionResult> ChangeBookingStatus(string id, string email,Status status)
         {
             var booking = _bookingService.Get(id);
 
@@ -105,7 +105,7 @@ namespace BookingService.Controllers
                 To = customer.Email
             });
 
-            _bookingService.Update(id, booking);
+            _bookingService.Update(booking.Id, booking);
             return Ok();
         }
 

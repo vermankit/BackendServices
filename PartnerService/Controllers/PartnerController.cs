@@ -27,7 +27,7 @@ namespace PartnerService.Controllers
         }
 
 
-        [HttpGet("{email}")]
+        [HttpGet("email/{email}")]
         public IActionResult Get(string email)
         {
             var result = _partnerService.Get(email);
@@ -39,16 +39,16 @@ namespace PartnerService.Controllers
             return Ok(_mapper.Map<Partner>(result));
         }
 
-        [HttpGet("{areacode}")]
-        public IActionResult GetByAreaCode(long areaCode)
+        [HttpGet("area-code/{code:int}")]
+        public IActionResult GetByAreaCode(int code)
         {
-            var result = _partnerService.GetByAreaCode(areaCode);
+            var result = _partnerService.GetByAreaCode(code);
             if (result == null)
             {
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<Partner>(result));
+            return Ok(_mapper.Map<List<Partner>>(result));
         }
 
         // POST api/<PartnerController>

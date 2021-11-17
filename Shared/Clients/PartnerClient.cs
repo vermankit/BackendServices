@@ -17,7 +17,7 @@ namespace Shared.Clients
 
         public async Task<Partner> GetPartner(string email)
         {
-            var response = await _httpClient.GetFromJsonAsync<Partner>($"api/partner/{email}");
+            var response = await _httpClient.GetFromJsonAsync<Partner>($"api/partner/email/{email}");
             return response;
         }
     }

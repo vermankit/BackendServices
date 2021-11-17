@@ -10,7 +10,7 @@ namespace PartnerService.Repositories.Entity
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
-        public long AreaCode { get; set; }
+        public int AreaCode { get; set; }
         public Service Profession { get; set; }
     }
 }
