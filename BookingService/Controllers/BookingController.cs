@@ -39,10 +39,10 @@ namespace BookingService.Controllers
         }
 
         // GET api/<CustomerController>/5
-        [HttpGet("{id:guid}")]
-        public Booking Get(Guid id)
+        [HttpGet("{bookingNumber}")]
+        public Booking Get(string bookingNumber)
         {
-            var result = _mapper.Map<Booking>(_bookingService.Get());
+            var result = _mapper.Map<Booking>(_bookingService.Get(bookingNumber));
             return result;
         }
 
@@ -62,10 +62,10 @@ namespace BookingService.Controllers
         }
 
         // PUT api/<CustomerController>/5
-        [HttpPut("{id:guid}")]
-        public Booking Put(Guid id, [FromBody] Booking booking)
+        [HttpPut("{bookingNumber}")]
+        public Booking Put(string bookingNumber, [FromBody] Booking booking)
         {
-            var result = _bookingService.Update(id,_mapper.Map<BookingEntity>(booking));
+            var result = _bookingService.Update(bookingNumber, _mapper.Map<BookingEntity>(booking));
             return _mapper.Map<Booking>(result); 
         }
     }

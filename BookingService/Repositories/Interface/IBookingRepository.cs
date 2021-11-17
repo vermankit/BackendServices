@@ -8,8 +8,8 @@ namespace BookingService.Repositories.Interface
     {
         BookingEntity Add(BookingEntity partner);
         List<BookingEntity> Get();
+        BookingEntity Get(string bookingNumber);
         BookingEntity Get(Guid id);
-        BookingEntity Get(string id);
-        BookingEntity Update(Guid id, BookingEntity partner);
+        BookingEntity Update(string id, BookingEntity partner);
     }
 }

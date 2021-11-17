@@ -80,7 +80,9 @@ namespace PartnerService.Repositories
                 FirstName = partnerEntity.FirstName,
                 LastName = partnerEntity.LastName,
                 Gender = partnerEntity.Gender,
-                Id = existedCustomer.Id
+                Id = existedCustomer.Id,
+                Email = partnerEntity.Email,
+                Profession = partnerEntity.Profession
             };
 
             var findIndex = PartnerEntities.FindIndex(i => i.Id == existedCustomer.Id);

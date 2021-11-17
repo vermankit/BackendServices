@@ -64,9 +64,9 @@ namespace BookingService.Repositories
         }
 
 
-        public BookingEntity Update(Guid id, BookingEntity booking)
+        public BookingEntity Update(string bookingNumber, BookingEntity booking)
         {
-            var existingBooking = Bookings.FirstOrDefault(item => item.Id == id);
+            var existingBooking = Bookings.FirstOrDefault(item => item.BookingNumber == bookingNumber);
 
             if (existingBooking != null)
             {

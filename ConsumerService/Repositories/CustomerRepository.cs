@@ -24,6 +24,7 @@ namespace ConsumerService.Repositories
                     Email = "anu.vig@test.com",
                     AreaCode = 101,
                     Address = "114,Saturn Colony",
+                    PhoneNumber = "898989899",
                     Gender = "F"
                 },
                 new()
@@ -34,6 +35,7 @@ namespace ConsumerService.Repositories
                     Email = "anu.vig@test.com",
                     AreaCode = 102,
                     Address = "114,Pluto Colony",
+                    PhoneNumber = "898989899",
                     Gender = "M"
                 }
             };
@@ -79,7 +81,8 @@ namespace ConsumerService.Repositories
                 LastName = customer.LastName,
                 Gender = customer.Gender,
                 Id = existedCustomer.Id,
-                PhoneNumber = customer.PhoneNumber
+                PhoneNumber = customer.PhoneNumber,
+                Email = customer.Email
             };
 
             var findIndex = Customers.FindIndex(e => e.Id == existedCustomer.Id);

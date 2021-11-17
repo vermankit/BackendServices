@@ -75,7 +75,7 @@ namespace BookingService.Controllers
                 To = partner.Email
             });
 
-            _bookingService.Update(booking.Id, booking);
+            _bookingService.Update(booking.BookingNumber, booking);
             return Ok();
         }
 
@@ -105,7 +105,7 @@ namespace BookingService.Controllers
                 To = customer.Email
             });
 
-            _bookingService.Update(booking.Id, booking);
+            _bookingService.Update(booking.BookingNumber, booking);
             return Ok();
         }
 
