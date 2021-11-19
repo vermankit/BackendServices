@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Shared.Message;
+using System.Threading.Tasks;
 
 namespace EmailWorker
 {

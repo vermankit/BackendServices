@@ -62,7 +62,7 @@ namespace PartnerService.Controllers
         [HttpPut("{email}")]
         public IActionResult Put(string email, [FromBody] Partner partner)
         {
-             var result = _partnerService.Get(email);
+            var result = _partnerService.Get(email);
             if (result == null)
             {
                 return NotFound();

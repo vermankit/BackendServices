@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Shared.Clients.Models;
+﻿using Shared.Clients.Models;
+using System.Threading.Tasks;
 
 namespace Shared.Clients.Interface
 {

@@ -1,5 +1,5 @@
-﻿using System.Net.Http;
-using Shared.Clients.Interface;
+﻿using Shared.Clients.Interface;
+using System.Net.Http;
 
 namespace Shared.Clients
 {

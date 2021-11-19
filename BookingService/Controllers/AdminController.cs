@@ -3,11 +3,10 @@ using BookingService.Enums;
 using BookingService.Repositories.Interface;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Shared.Clients.Interface;
 using Shared.Message;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -46,7 +45,7 @@ namespace BookingService.Controllers
             {
                 return NotFound();
             }
-            var partner  = await _partnerClient.GetPartner(email);
+            var partner = await _partnerClient.GetPartner(email);
             var customer = await _consumerClient.GetCustomer(booking.CustomerEmail);
             booking.ServiceProvideEmail = partner.Email;
             booking.Status = Status.Processing;

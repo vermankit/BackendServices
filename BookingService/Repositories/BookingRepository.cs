@@ -11,7 +11,7 @@ namespace BookingService.Repositories
     {
 
         public static List<BookingEntity> Bookings { get; set; }
-        
+
         static BookingRepository()
         {
             Bookings = new List<BookingEntity>
@@ -81,7 +81,7 @@ namespace BookingService.Repositories
                 Bookings.Add(existingBooking);
             }
 
-           
+
             return existingBooking;
         }
 

@@ -1,4 +1,7 @@
+using AutoMapper;
+using ConsumerService.Mapper;
 using ConsumerService.Repositories;
+using ConsumerService.Repositories.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -12,9 +15,6 @@ using Shared.Clients.Interface;
 using Steeltoe.Discovery.Client;
 using System;
 using System.Net.Http;
-using AutoMapper;
-using ConsumerService.Mapper;
-using ConsumerService.Repositories.Interface;
 
 namespace ConsumerService
 {

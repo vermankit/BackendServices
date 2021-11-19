@@ -1,7 +1,6 @@
 using MassTransit;
 using Microsoft.Extensions.Hosting;
 using Shared.Message;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,10 +19,10 @@ namespace EmailWorker
         {
             //while (!stoppingToken.IsCancellationRequested)
             //{
-                await _bus.Publish(new EmailMessage() { Message = "emailAnj=kit=" }, stoppingToken);
+            await _bus.Publish(new EmailMessage() { Message = "emailAnj=kit=" }, stoppingToken);
 
-                //await Task.Delay(1000, stoppingToken);
-           // }
+            //await Task.Delay(1000, stoppingToken);
+            // }
         }
     }
 

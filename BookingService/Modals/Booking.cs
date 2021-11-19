@@ -1,13 +1,12 @@
-﻿using System;
+﻿using BookingService.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Security.AccessControl;
-using BookingService.Enums;
 
 namespace BookingService.Modals
 {
     public class Booking
     {
-        
+
         [Required] public string CustomerEmail { get; set; }
         [Required]
         public Service RequestedService { get; set; }

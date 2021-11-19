@@ -72,7 +72,7 @@ namespace ConsumerService.Repositories
             {
                 return null;
             }
-            
+
             var updatedCustomer = new CustomerEntity()
             {
                 Address = customer.Address,

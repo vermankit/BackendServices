@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using PartnerService.Enum;
+﻿using PartnerService.Enum;
 using PartnerService.Repositories.Entity;
 using PartnerService.Repositories.Interface;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PartnerService.Repositories
 {

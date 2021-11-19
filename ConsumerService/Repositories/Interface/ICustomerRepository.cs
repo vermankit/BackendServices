@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using ConsumerService.Repositories.Entity;
+﻿using ConsumerService.Repositories.Entity;
+using System.Collections.Generic;
 
 namespace ConsumerService.Repositories.Interface
 {

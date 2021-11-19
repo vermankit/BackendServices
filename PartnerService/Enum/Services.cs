@@ -1,7 +1,7 @@
 
 namespace PartnerService.Enum
 {
- 
+
     public enum Service
     {
         Cook = 1,

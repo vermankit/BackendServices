@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using ConsumerService.Modals;
 
 namespace ConsumerService.Repositories.Entity
 {

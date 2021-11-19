@@ -1,5 +1,3 @@
-using System;
-using System.Net.Http;
 using AutoMapper;
 using BookingService.Mapper;
 using BookingService.Repositories;
@@ -16,6 +14,8 @@ using Polly.Extensions.Http;
 using Shared.Clients;
 using Shared.Clients.Interface;
 using Steeltoe.Discovery.Client;
+using System;
+using System.Net.Http;
 
 namespace BookingService
 {

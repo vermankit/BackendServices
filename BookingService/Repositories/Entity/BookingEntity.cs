@@ -1,5 +1,5 @@
-﻿using System;
-using BookingService.Enums;
+﻿using BookingService.Enums;
+using System;
 
 namespace BookingService.Repositories.Entity
 {

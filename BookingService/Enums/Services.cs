@@ -1,7 +1,7 @@
 
 namespace BookingService.Enums
 {
- 
+
     public enum Service
     {
         Cook = 1,

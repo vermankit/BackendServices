@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
+using BookingService.Enums;
 using BookingService.Modals;
 using BookingService.Repositories.Entity;
 using BookingService.Repositories.Interface;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Clients.Interface;
 using Shared.Message;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BookingService.Enums;
-using Shared.Clients.Interface;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -71,7 +70,7 @@ namespace BookingService.Controllers
         public Booking Put(string bookingNumber, [FromBody] Booking booking)
         {
             var result = _bookingService.Update(bookingNumber, _mapper.Map<BookingEntity>(booking));
-            return _mapper.Map<Booking>(result); 
+            return _mapper.Map<Booking>(result);
         }
 
 

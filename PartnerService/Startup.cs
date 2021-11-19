@@ -1,5 +1,3 @@
-using System;
-using System.Net.Http;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +13,8 @@ using Polly.Extensions.Http;
 using Shared.Clients;
 using Shared.Clients.Interface;
 using Steeltoe.Discovery.Client;
+using System;
+using System.Net.Http;
 
 namespace PartnerService
 {

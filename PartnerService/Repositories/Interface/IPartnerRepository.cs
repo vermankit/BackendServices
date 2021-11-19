@@ -1,5 +1,4 @@
 ﻿using PartnerService.Repositories.Entity;
-using System;
 using System.Collections.Generic;
 
 namespace PartnerService.Repositories.Interface
