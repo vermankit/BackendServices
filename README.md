@@ -1,4 +1,4 @@
-# BackendServices
+# Microservice for a urban clap like service provider POC
 # Overview Diagram
 ![NAGP_Assigment_Diagram](https://user-images.githubusercontent.com/17446840/142975748-e7355a2f-9250-4440-8d87-8d88f27f2193.jpg)
 
